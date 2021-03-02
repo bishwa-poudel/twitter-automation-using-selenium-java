@@ -1,5 +1,6 @@
 package com.bishwa.twitter.automate.restful;
 
+import com.bishwa.twitter.automate.core.LikeAction;
 import com.bishwa.twitter.automate.core.LoginAction;
 
 import javax.inject.Inject;
@@ -20,12 +21,23 @@ public class AutomateRestfulService {
     @Inject
     private LoginAction loginAction;
 
+    @Inject
+    private LikeAction likeAction;
+
     @GET
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login() {
         loginAction.action();
         return Response.ok("Login successful").build();
+    }
+
+    @GET
+    @Path("/like")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response like() {
+        likeAction.action();
+        return Response.ok("Like successful").build();
     }
 
 }
