@@ -100,5 +100,6 @@ crashlytics-build.properties
 fabric.properties
 
 # Project specific properties file
-src/main/resources-filtered/twitter.properties
+src/main/resources/*.properties
+!src/main/resources/*.sample.properties
 src/test/
