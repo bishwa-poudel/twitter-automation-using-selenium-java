@@ -41,7 +41,7 @@ public abstract class IDriverManager {
     public static Wait<WebDriver> getFluentWait() {
         return new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofMillis(500))
+                .pollingEvery(Duration.ofMillis(1000))
                 .ignoring(NoSuchElementException.class);
     }
 
