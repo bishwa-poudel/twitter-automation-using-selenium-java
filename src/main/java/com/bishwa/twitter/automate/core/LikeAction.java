@@ -35,7 +35,9 @@ public class LikeAction {
     private final Integer LIKE_LIMIT = 10;
 
     public void action() {
-        driver.get(TWITTER_HASHTAG_URL);
+        driver.get(TWITTER_ADVANCED_URL);
+        driver.navigate().refresh(); // due to instances of not signed in during the first try
+        
         fluentWait.until(twitterLoggedIn);
 
         IntStream.rangeClosed(1, 5).forEach(iter -> {
