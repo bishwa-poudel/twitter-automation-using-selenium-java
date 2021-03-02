@@ -1,5 +1,6 @@
 package com.bishwa.twitter.automate.core;
 
+import com.bishwa.twitter.automate.conditions.TwitterLoggedIn;
 import com.bishwa.twitter.automate.properties.TwitterProperties;
 import com.bishwa.twitter.webdriver.IDriverManager;
 import org.openqa.selenium.By;
@@ -10,12 +11,17 @@ import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 /**
  * Author: Bishwa
  * Date: 01/03/2021
  * Time: 16:21
  */
 public class LoginAction {
+    @Inject
+    private TwitterLoggedIn twitterLoggedIn;
+
     private static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
     private static final WebDriver driver = IDriverManager.getDriver();
     private final Wait<WebDriver> fluentWait = IDriverManager.getFluentWait();
@@ -34,8 +40,7 @@ public class LoginAction {
         passwordField.sendKeys(TwitterProperties.PASSWORD.val());
         loginButton.click();
 
-        // await for some element to appear
-        fluentWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@data-testid=\"AppTabBar_Home_Link\"]")));
+        fluentWait.until(twitterLoggedIn);
 
         logger.info("Logged into twitter");
     }
