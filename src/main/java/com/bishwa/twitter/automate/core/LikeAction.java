@@ -38,20 +38,20 @@ public class LikeAction {
         driver.get(TWITTER_HASHTAG_URL);
         fluentWait.until(twitterLoggedIn);
 
-        IntStream.rangeClosed(1, 30).forEach(iter -> {
+        IntStream.rangeClosed(1, 5).forEach(iter -> {
             fetchTweetLikeElements().forEach(el -> {
-                js.executeScript("arguments[0].scrollIntoView();", el);
-                js.executeScript("arguments[0].click();", el);
-
                 try {
+                    js.executeScript("arguments[0].scrollIntoView();", el);
                     Thread.sleep(1000);
-                } catch (InterruptedException ignored) {}
+                    js.executeScript("arguments[0].click();", el);
+
+                } catch (Exception e) { e.printStackTrace(); }
             });
 
-            js.executeScript("window.scrollBy(0,250)");
+            js.executeScript("window.scrollBy(0,200)");
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException ignored) {}
 
         });
