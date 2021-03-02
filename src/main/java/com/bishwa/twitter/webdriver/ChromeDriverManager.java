@@ -19,8 +19,8 @@ public class ChromeDriverManager extends IDriverManager {
     @Override
     public void initDriver() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--window-size=1366,768");
-//        options.addArguments("--window-size=1366,768");
+//        options.addArguments("--headless", "--window-size=1366,768");
+        options.addArguments("--window-size=1366,768");
 
         driver = new ChromeDriver(options);
     }

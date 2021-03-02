@@ -1,5 +1,7 @@
 package com.bishwa.twitter;
 
+import com.bishwa.twitter.webdriver.ChromeDriverManager;
+import com.bishwa.twitter.webdriver.IDriverManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +19,9 @@ import java.util.TimeZone;
 public class RequestListener implements ServletContextListener {
     private static final Logger logger = LoggerFactory.getLogger(RequestListener.class);
 
+    // initializing class will initialize static values once, thereby initializes chrome driver.
+    private final IDriverManager driverManager = new ChromeDriverManager();
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("SERVER STARTED SUCCESSFULLY");
@@ -26,5 +31,7 @@ public class RequestListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.info("[CONTEXT-DESTROYED] SERVER STOP SIGNAL RECEIVED");
+
+        driverManager.tearDown();
     }
 }
