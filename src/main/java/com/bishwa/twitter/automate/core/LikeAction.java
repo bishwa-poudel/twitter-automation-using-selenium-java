@@ -2,10 +2,7 @@ package com.bishwa.twitter.automate.core;
 
 import com.bishwa.twitter.automate.conditions.TwitterLoggedIn;
 import com.bishwa.twitter.webdriver.IDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
@@ -36,9 +33,12 @@ public class LikeAction {
 
     public void action() {
         driver.get(TWITTER_ADVANCED_URL);
-        driver.navigate().refresh(); // due to instances of not signed in during the first try
-        
-        fluentWait.until(twitterLoggedIn);
+        try {
+            fluentWait.until(twitterLoggedIn);
+        } catch (TimeoutException e) {
+            driver.navigate().refresh(); // due to instances of not signed in during the first try
+            fluentWait.until(twitterLoggedIn);
+        }
 
         IntStream.rangeClosed(1, 5).forEach(iter -> {
             fetchTweetLikeElements().forEach(el -> {
