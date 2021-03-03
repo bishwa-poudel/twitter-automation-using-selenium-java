@@ -40,11 +40,11 @@ public class LikeAction {
             fluentWait.until(twitterLoggedIn);
         }
 
-        IntStream.rangeClosed(1, 5).forEach(iter -> {
+        IntStream.rangeClosed(1, 30).forEach(iter -> {
             fetchTweetLikeElements().forEach(el -> {
                 try {
                     js.executeScript("arguments[0].scrollIntoView();", el);
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                     js.executeScript("arguments[0].click();", el);
 
                 } catch (Exception e) { e.printStackTrace(); }
@@ -53,7 +53,7 @@ public class LikeAction {
             js.executeScript("window.scrollBy(0,200)");
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException ignored) {}
 
         });
