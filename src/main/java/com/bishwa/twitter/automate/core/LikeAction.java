@@ -41,13 +41,14 @@ public class LikeAction {
         }
 
         IntStream.rangeClosed(1, 30).forEach(iter -> {
+            logger.info("Iteration : " + iter);
             fetchTweetLikeElements().forEach(el -> {
                 try {
                     js.executeScript("arguments[0].scrollIntoView();", el);
                     Thread.sleep(2000);
                     js.executeScript("arguments[0].click();", el);
 
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception ignored) {}
             });
 
             js.executeScript("window.scrollBy(0,200)");
