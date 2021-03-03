@@ -27,7 +27,17 @@ public class LogoutAction {
         By logoutConfirmBtn = By.xpath("//div[@data-testid=\"confirmationSheetConfirm\"]");
 
         try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ignored) {}
+
+        try {
+            if (!driver.getCurrentUrl().equals(TWITTER_LOGOUT_URL)) {
+                logger.info("Already logged out of twitter");
+                return;
+            }
+
             fluentWait.until(ExpectedConditions.presenceOfElementLocated(logoutConfirmBtn));
+
         } catch (TimeoutException e) {
             logger.info("Already logged out of twitter");
             return;
