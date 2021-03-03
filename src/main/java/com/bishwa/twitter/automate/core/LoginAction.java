@@ -30,6 +30,12 @@ public class LoginAction {
 
     public void action() {
         driver.get(TWITTER_LOGIN_URL);
+
+        if(checkIfLoggedIn()) {
+            logger.info("Already logged in to twitter");
+            return;
+        }
+
         fluentWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name=\"session[username_or_email]\"]")));
 
         WebElement usernameField = driver.findElement(By.xpath("//input[@name=\"session[username_or_email]\"]"));
@@ -43,5 +49,9 @@ public class LoginAction {
         fluentWait.until(twitterLoggedIn);
 
         logger.info("Logged into twitter");
+    }
+
+    private boolean checkIfLoggedIn() {
+        return !driver.getCurrentUrl().equals(TWITTER_LOGIN_URL);
     }
 }
