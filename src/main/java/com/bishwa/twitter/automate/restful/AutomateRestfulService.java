@@ -2,6 +2,7 @@ package com.bishwa.twitter.automate.restful;
 
 import com.bishwa.twitter.automate.core.LikeAction;
 import com.bishwa.twitter.automate.core.LoginAction;
+import com.bishwa.twitter.automate.core.LogoutAction;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -24,6 +25,9 @@ public class AutomateRestfulService {
     @Inject
     private LikeAction likeAction;
 
+    @Inject
+    private LogoutAction logoutAction;
+
     @GET
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,6 +42,14 @@ public class AutomateRestfulService {
     public Response like() {
         likeAction.action();
         return Response.ok("Like successful").build();
+    }
+
+    @GET
+    @Path("/logout")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response logout() {
+        logoutAction.action();
+        return Response.ok("Logout successful").build();
     }
 
 }
