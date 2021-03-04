@@ -47,6 +47,7 @@ public class LikeAction {
                     Thread.sleep(3000);
                     js.executeScript("arguments[0].click();", el);
 
+                    logger.info("Total liked : " + totalLiked.get());
                     totalLiked.getAndIncrement();
 
                 } catch (Exception ignored) {}
