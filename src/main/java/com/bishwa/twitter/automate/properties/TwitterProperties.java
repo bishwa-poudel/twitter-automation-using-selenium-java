@@ -12,7 +12,9 @@ import java.util.Properties;
  */
 public enum TwitterProperties {
     USERNAME("USERNAME"),
-    PASSWORD("PASSWORD");
+    PASSWORD("PASSWORD"),
+    LIKE_LIMIT("LIKE_LIMIT"),
+    TWITTER_FEED_URL("TWITTER_FEED_URL");
 
     public static final Logger logger = LoggerFactory.getLogger(TwitterProperties.class);
     public static final Properties twitterProperties = new Properties();

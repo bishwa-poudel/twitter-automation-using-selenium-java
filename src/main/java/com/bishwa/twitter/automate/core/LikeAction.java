@@ -1,17 +1,16 @@
 package com.bishwa.twitter.automate.core;
 
 import com.bishwa.twitter.automate.conditions.TwitterLoggedIn;
+import com.bishwa.twitter.automate.properties.TwitterProperties;
 import com.bishwa.twitter.webdriver.IDriverManager;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Author: Bishwa
@@ -27,12 +26,11 @@ public class LikeAction {
     private final Wait<WebDriver> fluentWait = IDriverManager.getFluentWait();
     private final JavascriptExecutor js = IDriverManager.getJSExecutor();
 
-    private static final String TWITTER_HASHTAG_URL = "https://twitter.com/hashtag/100DaysOfCode?f=live";
-    private static final String TWITTER_ADVANCED_URL = "https://twitter.com/search?q=(Day)%20-Visit%20(%23100DaysOfCode%20OR%20%23javascript%20OR%20%23CodeNewbie%20OR%20%23DEVCommunity%20OR%20%23CodeNewbies%20OR%20%23WomenWhoCode%20OR%20%23programming%20OR%20%23java)%20lang%3Aen%20-filter%3Alinks%20-filter%3Areplies&src=typed_query&f=live";
-    private final Integer LIKE_LIMIT = 10;
+    private static final String TWITTER_FEED_URL = TwitterProperties.TWITTER_FEED_URL.val();
+    private final Integer LIKE_LIMIT = TwitterProperties.LIKE_LIMIT.val().equals("") ? 0 : Integer.parseInt(TwitterProperties.LIKE_LIMIT.val());
 
     public void action() {
-        driver.get(TWITTER_ADVANCED_URL);
+        driver.get(TWITTER_FEED_URL);
         try {
             fluentWait.until(twitterLoggedIn);
         } catch (TimeoutException e) {
@@ -40,25 +38,22 @@ public class LikeAction {
             fluentWait.until(twitterLoggedIn);
         }
 
-        IntStream.rangeClosed(1, 30).forEach(iter -> {
-            logger.info("Iteration : " + iter);
+        AtomicInteger totalLiked = new AtomicInteger();
+
+        while(totalLiked.get() <= LIKE_LIMIT) {
             fetchTweetLikeElements().forEach(el -> {
                 try {
                     js.executeScript("arguments[0].scrollIntoView();", el);
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                     js.executeScript("arguments[0].click();", el);
+
+                    totalLiked.getAndIncrement();
 
                 } catch (Exception ignored) {}
             });
 
             js.executeScript("window.scrollBy(0,200)");
-
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ignored) {}
-
-        });
-
+        }
     }
 
     private List<WebElement> fetchTweetLikeElements() {
