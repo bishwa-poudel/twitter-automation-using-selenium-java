@@ -1,10 +1,11 @@
-package com.bishwa.twitter.automate.core;
+package com.bishwa.twitter.automate.core.handlers;
 
 import com.bishwa.twitter.automate.conditions.TwitterLoggedIn;
+import com.bishwa.twitter.automate.core.IAutomate;
 import com.bishwa.twitter.automate.properties.TwitterProperties;
-import com.bishwa.twitter.webdriver.IDriverManager;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,22 +15,26 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Author: Bishwa
- * Date: 02/03/2021
- * Time: 19:14
+ * Date: 04/03/2021
+ * Time: 21:50
  */
-public class LikeAction {
-    @Inject
-    private TwitterLoggedIn twitterLoggedIn;
-
-    private static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
-    private static final WebDriver driver = IDriverManager.getDriver();
-    private final Wait<WebDriver> fluentWait = IDriverManager.getFluentWait();
-    private final JavascriptExecutor js = IDriverManager.getJSExecutor();
+public class LikeRequestHandler extends IAutomate {
+    private static final Logger logger = LoggerFactory.getLogger(LikeRequestHandler.class);
 
     private static final String TWITTER_FEED_URL = TwitterProperties.TWITTER_FEED_URL.val();
     private final Integer LIKE_LIMIT = TwitterProperties.LIKE_LIMIT.val().equals("") ? 0 : Integer.parseInt(TwitterProperties.LIKE_LIMIT.val());
 
-    public void action() {
+    @Inject
+    private TwitterLoggedIn twitterLoggedIn;
+
+    @Override
+    public void handleRequest() {
+        logger.info("Like request executed");
+
+        processNext();
+    }
+
+    private void like() {
         driver.get(TWITTER_FEED_URL);
         try {
             fluentWait.until(twitterLoggedIn);
@@ -60,6 +65,5 @@ public class LikeAction {
     private List<WebElement> fetchTweetLikeElements() {
         return driver.findElements(By.xpath("//div[@data-testid=\"like\"]"));
     }
-
 
 }

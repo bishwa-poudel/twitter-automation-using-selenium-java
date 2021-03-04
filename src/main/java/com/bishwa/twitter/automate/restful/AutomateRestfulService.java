@@ -1,10 +1,11 @@
 package com.bishwa.twitter.automate.restful;
 
-import com.bishwa.twitter.automate.core.LikeAction;
-import com.bishwa.twitter.automate.core.LoginAction;
-import com.bishwa.twitter.automate.core.LogoutAction;
+import com.bishwa.twitter.automate.core.IAutomate;
+import com.bishwa.twitter.automate.core.handlers.AutomateHandler;
+import com.bishwa.twitter.automate.core.handlers.LikeRequestHandler;
+import com.bishwa.twitter.automate.core.handlers.LoginRequestHandler;
+import com.bishwa.twitter.automate.core.handlers.LogoutRequestHandler;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,21 +19,14 @@ import javax.ws.rs.core.Response;
  */
 @Path("/action")
 public class AutomateRestfulService {
-
-    @Inject
-    private LoginAction loginAction;
-
-    @Inject
-    private LikeAction likeAction;
-
-    @Inject
-    private LogoutAction logoutAction;
+    private final IAutomate iAutomate = new AutomateHandler();
 
     @GET
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login() {
-        loginAction.action();
+        iAutomate.next(new LoginRequestHandler());
+
         return Response.ok("Login successful").build();
     }
 
@@ -40,7 +34,10 @@ public class AutomateRestfulService {
     @Path("/like")
     @Produces(MediaType.APPLICATION_JSON)
     public Response like() {
-        likeAction.action();
+        iAutomate.next(new LoginRequestHandler())
+                .next(new LikeRequestHandler())
+                .next(new LogoutRequestHandler());
+
         return Response.ok("Like successful").build();
     }
 
@@ -48,7 +45,8 @@ public class AutomateRestfulService {
     @Path("/logout")
     @Produces(MediaType.APPLICATION_JSON)
     public Response logout() {
-        logoutAction.action();
+        iAutomate.next(new LogoutRequestHandler());
+
         return Response.ok("Logout successful").build();
     }
 

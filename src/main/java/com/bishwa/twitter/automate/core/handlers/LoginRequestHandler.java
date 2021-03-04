@@ -1,13 +1,11 @@
-package com.bishwa.twitter.automate.core;
+package com.bishwa.twitter.automate.core.handlers;
 
 import com.bishwa.twitter.automate.conditions.TwitterLoggedIn;
+import com.bishwa.twitter.automate.core.IAutomate;
 import com.bishwa.twitter.automate.properties.TwitterProperties;
-import com.bishwa.twitter.webdriver.IDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,20 +13,26 @@ import javax.inject.Inject;
 
 /**
  * Author: Bishwa
- * Date: 01/03/2021
- * Time: 16:21
+ * Date: 04/03/2021
+ * Time: 21:43
  */
-public class LoginAction {
+public class LoginRequestHandler extends IAutomate {
+    private static final Logger logger = LoggerFactory.getLogger(LoginRequestHandler.class);
+    private static final String TWITTER_LOGIN_URL = "https://twitter.com/login";
+
     @Inject
     private TwitterLoggedIn twitterLoggedIn;
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
-    private static final WebDriver driver = IDriverManager.getDriver();
-    private final Wait<WebDriver> fluentWait = IDriverManager.getFluentWait();
+    @Override
+    public void handleRequest() {
+        logger.info("Login request executed");
+        if(checkIfLoggedIn()) return;
+        login();
 
-    private static final String TWITTER_LOGIN_URL = "https://twitter.com/login";
+        processNext();
+    }
 
-    public void action() {
+    private void login() {
         driver.get(TWITTER_LOGIN_URL);
 
         if(checkIfLoggedIn()) {
