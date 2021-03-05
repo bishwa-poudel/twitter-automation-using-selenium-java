@@ -1,10 +1,12 @@
 package com.bishwa.twitter.scheduler;
 
 import com.bishwa.twitter.automate.properties.TwitterProperties;
+import com.bishwa.twitter.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Timer;
 
@@ -21,14 +23,14 @@ public class TaskScheduler {
 
     private final Timer timer = new Timer();
     private final Long repeatIntervalMillis = (Objects.equals(TwitterProperties.REPEAT_AFTER_IN_MINUTES.val(), "") ? 1L : Long.parseLong(TwitterProperties.REPEAT_AFTER_IN_MINUTES.val())) * 60 * 1000;
-
-
+    private final Date scheduledDate = DateUtils.getNextSchedulingTime();
 
 
     public void initScheduler() {
-        timer.scheduleAtFixedRate(likeTimer, 0L, repeatIntervalMillis);
 
-        logger.info("[TASK-SCHEDULER] CHECK IN TASK SCHEDULED");
+        timer.scheduleAtFixedRate(likeTimer, scheduledDate, repeatIntervalMillis);
+
+        logger.info("[TASK-SCHEDULER] CHECK IN TASK SCHEDULED FOR " + scheduledDate);
     }
 
     public void stopScheduler() {
