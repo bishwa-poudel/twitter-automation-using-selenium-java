@@ -25,12 +25,13 @@ public class LikeRequestHandler extends IAutomate {
     private static final String TWITTER_FEED_URL = TwitterProperties.TWITTER_FEED_URL.val();
     private final Integer LIKE_LIMIT = TwitterProperties.LIKE_LIMIT.val().equals("") ? 0 : Integer.parseInt(TwitterProperties.LIKE_LIMIT.val());
 
-    @Inject
-    private TwitterLoggedIn twitterLoggedIn;
+    private static final TwitterLoggedIn twitterLoggedIn = new TwitterLoggedIn();
 
     @Override
     public void handleRequest() {
         logger.info("Like request executed");
+
+        like();
 
         processNext();
     }

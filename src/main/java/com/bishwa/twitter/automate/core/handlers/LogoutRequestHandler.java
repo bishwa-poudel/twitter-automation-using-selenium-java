@@ -22,6 +22,8 @@ public class LogoutRequestHandler extends IAutomate {
     public void handleRequest() {
         logger.info("Login request executed");
 
+        logout();
+
         processNext();
     }
 

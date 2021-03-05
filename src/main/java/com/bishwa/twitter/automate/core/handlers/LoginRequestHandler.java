@@ -20,8 +20,7 @@ public class LoginRequestHandler extends IAutomate {
     private static final Logger logger = LoggerFactory.getLogger(LoginRequestHandler.class);
     private static final String TWITTER_LOGIN_URL = "https://twitter.com/login";
 
-    @Inject
-    private TwitterLoggedIn twitterLoggedIn;
+    private static final TwitterLoggedIn twitterLoggedIn = new TwitterLoggedIn();
 
     @Override
     public void handleRequest() {
