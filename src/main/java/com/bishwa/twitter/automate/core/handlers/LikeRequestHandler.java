@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -49,7 +50,9 @@ public class LikeRequestHandler extends IAutomate {
             fetchTweetLikeElements().forEach(el -> {
                 try {
                     js.executeScript("arguments[0].scrollIntoView();", el);
-                    Thread.sleep(3000);
+
+                    Thread.sleep(Objects.equals(TwitterProperties.DELAY_IN_MS.val(), "") ? 1000L : Long.parseLong(TwitterProperties.DELAY_IN_MS.val()));
+
                     js.executeScript("arguments[0].click();", el);
 
                     logger.info("Total liked : " + totalLiked.get());
