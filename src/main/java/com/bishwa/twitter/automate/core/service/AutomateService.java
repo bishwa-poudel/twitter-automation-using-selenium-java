@@ -6,8 +6,6 @@ import com.bishwa.twitter.automate.core.handlers.LikeRequestHandler;
 import com.bishwa.twitter.automate.core.handlers.LoginRequestHandler;
 import com.bishwa.twitter.automate.core.handlers.LogoutRequestHandler;
 
-import javax.inject.Inject;
-
 /**
  * Author: Bishwa
  * Date: 05/03/2021
@@ -23,8 +21,8 @@ public class AutomateService {
 
     public void like() {
         iAutomate.next(new LoginRequestHandler())
-                .next(new LikeRequestHandler())
-                .next(new LogoutRequestHandler());
+                .next(new LikeRequestHandler());
+//                .next(new LogoutRequestHandler());
         iAutomate.handleRequest();
     }
 
