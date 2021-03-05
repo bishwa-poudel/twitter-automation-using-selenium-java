@@ -25,7 +25,9 @@ public class AutomateRestfulService {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login() {
-        iAutomate.next(new LoginRequestHandler()).handleRequest();
+        iAutomate.next(new LoginRequestHandler());
+
+        iAutomate.handleRequest();
 
         return Response.ok("Login successful").build();
     }
@@ -36,8 +38,9 @@ public class AutomateRestfulService {
     public Response like() {
         iAutomate.next(new LoginRequestHandler())
                 .next(new LikeRequestHandler())
-                .next(new LogoutRequestHandler())
-                .handleRequest();
+                .next(new LogoutRequestHandler());
+
+        iAutomate.handleRequest();
 
         return Response.ok("Like successful").build();
     }
@@ -46,7 +49,9 @@ public class AutomateRestfulService {
     @Path("/logout")
     @Produces(MediaType.APPLICATION_JSON)
     public Response logout() {
-        iAutomate.next(new LogoutRequestHandler()).handleRequest();
+        iAutomate.next(new LogoutRequestHandler());
+
+        iAutomate.handleRequest();
 
         return Response.ok("Logout successful").build();
     }

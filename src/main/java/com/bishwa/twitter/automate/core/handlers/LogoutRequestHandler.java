@@ -20,7 +20,7 @@ public class LogoutRequestHandler extends IAutomate {
 
     @Override
     public void handleRequest() {
-        logger.info("Login request executed");
+        logger.info("Logout request executed");
 
         logout();
 
