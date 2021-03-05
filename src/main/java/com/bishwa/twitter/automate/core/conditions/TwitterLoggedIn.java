@@ -1,4 +1,4 @@
-package com.bishwa.twitter.automate.conditions;
+package com.bishwa.twitter.automate.core.conditions;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-package com.bishwa.twitter.automate.service;
+package com.bishwa.twitter.automate.core.service;
 
 import com.bishwa.twitter.automate.core.IAutomate;
 import com.bishwa.twitter.automate.core.handlers.AutomateHandler;

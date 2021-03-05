@@ -1,6 +1,6 @@
 package com.bishwa.twitter.automate.restful;
 
-import com.bishwa.twitter.automate.service.AutomateService;
+import com.bishwa.twitter.automate.core.service.AutomateService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
