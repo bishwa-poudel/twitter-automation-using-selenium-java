@@ -25,6 +25,7 @@ public class LikeTimer extends TimerTask {
             automateService.like();
         } catch (Exception e) {
             logger.error("[SCHEDULER] Error in Like action : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

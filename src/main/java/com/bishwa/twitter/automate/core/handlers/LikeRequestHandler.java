@@ -46,7 +46,7 @@ public class LikeRequestHandler extends IAutomate {
 
         AtomicInteger totalLiked = new AtomicInteger();
 
-        while(totalLiked.get() <= LIKE_LIMIT) {
+        while(totalLiked.get() < LIKE_LIMIT) {
             fetchTweetLikeElements().forEach(el -> {
                 try {
                     js.executeScript("arguments[0].scrollIntoView();", el);
@@ -55,7 +55,7 @@ public class LikeRequestHandler extends IAutomate {
 
                     js.executeScript("arguments[0].click();", el);
 
-                    logger.info("Total liked : " + totalLiked.get());
+                    logger.info("Total liked : " + (totalLiked.get()+1));
                     totalLiked.getAndIncrement();
 
                 } catch (Exception ignored) {}

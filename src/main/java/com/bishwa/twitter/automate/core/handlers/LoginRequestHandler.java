@@ -53,6 +53,10 @@ public class LoginRequestHandler extends IAutomate {
     }
 
     private boolean checkIfLoggedIn() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ignored) {}
+
         return !driver.getCurrentUrl().equals(TWITTER_LOGIN_URL);
     }
 }
