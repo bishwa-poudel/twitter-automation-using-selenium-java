@@ -15,7 +15,8 @@ public enum TwitterProperties {
     PASSWORD("PASSWORD"),
     LIKE_LIMIT("LIKE_LIMIT"),
     TWITTER_FEED_URL("TWITTER_FEED_URL"),
-    DELAY_IN_MS("DELAY_IN_MS");
+    DELAY_IN_MS("DELAY_IN_MS"),
+    REPEAT_AFTER_IN_MINUTES("REPEAT_AFTER_IN_MINUTES");
 
     public static final Logger logger = LoggerFactory.getLogger(TwitterProperties.class);
     public static final Properties twitterProperties = new Properties();

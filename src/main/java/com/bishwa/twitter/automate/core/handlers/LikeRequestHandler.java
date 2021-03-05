@@ -1,6 +1,6 @@
 package com.bishwa.twitter.automate.core.handlers;
 
-import com.bishwa.twitter.automate.core.conditions.TwitterLoggedIn;
+import com.bishwa.twitter.automate.conditions.TwitterLoggedIn;
 import com.bishwa.twitter.automate.core.IAutomate;
 import com.bishwa.twitter.automate.properties.TwitterProperties;
 import org.openqa.selenium.By;
