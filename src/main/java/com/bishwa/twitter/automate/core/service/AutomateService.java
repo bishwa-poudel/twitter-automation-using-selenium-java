@@ -14,7 +14,6 @@ import javax.inject.Inject;
  * Time: 13:34
  */
 public class AutomateService {
-    @Inject
     private final IAutomate iAutomate = new AutomateHandler();
 
     public void login() {
