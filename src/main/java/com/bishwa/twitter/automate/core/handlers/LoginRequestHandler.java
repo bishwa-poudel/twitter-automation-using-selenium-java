@@ -26,7 +26,7 @@ public class LoginRequestHandler extends IAutomate {
     @Override
     public void handleRequest() {
         logger.info("Login request executed");
-        if(checkIfLoggedIn()) return;
+
         login();
 
         processNext();
