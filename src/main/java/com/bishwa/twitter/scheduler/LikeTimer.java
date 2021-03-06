@@ -21,11 +21,11 @@ public class LikeTimer extends TimerTask {
     @Override
     public void run() {
         try {
-            logger.info("[SCHEDULER] Like action triggered");
+            logger.info("[TASK-SCHEDULER] Like action triggered");
             automateService.like();
         } catch (Exception e) {
-            logger.error("[SCHEDULER] Error in Like action : " + e.getMessage());
-            e.printStackTrace();
+            logger.error("[TASK-SCHEDULER] Error in Like action : " + e.getMessage());
+//            e.printStackTrace();
         }
     }
 }

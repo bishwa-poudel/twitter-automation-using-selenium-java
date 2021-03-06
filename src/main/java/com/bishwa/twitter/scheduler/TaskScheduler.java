@@ -30,7 +30,7 @@ public class TaskScheduler {
 
         timer.scheduleAtFixedRate(likeTimer, scheduledDate, repeatIntervalMillis);
 
-        logger.info("[TASK-SCHEDULER] CHECK IN TASK SCHEDULED FOR " + scheduledDate);
+        logger.info("[TASK-SCHEDULER] LIKE TASK SCHEDULED FOR " + scheduledDate);
     }
 
     public void stopScheduler() {
