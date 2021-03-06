@@ -8,10 +8,10 @@
     <br /><br/>
     <a href="https://www.linkedin.com/in/bishwapoudel/">
         <img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555"
-            alt="follow on Twitter"></a>
+            alt="Get connected on LinkedIn"></a>
     <a href="https://twitter.com/intent/follow?screen_name=_bishwapoudel">
         <img src="https://img.shields.io/twitter/follow/_bishwapoudel?style=for-the-badge&logo=twitter"
-            alt="follow on LinkedIn"></a>
+            alt="Follow on LinkedIn"></a>
 
   </p>
 </p>
@@ -80,9 +80,9 @@ TWITTER_FEED_URL=twitter_feed_url
 mvn clean install
 ```
 
-![image](https://user-images.githubusercontent.com/16562819/108626213-270c9b80-7477-11eb-8988-d36f9f60f0fc.png)
+![image](https://user-images.githubusercontent.com/16562819/110209816-a60dc500-7eb6-11eb-9bff-6a2ceabbd162.png)
 
-* Once you see this message in the console, your build is ready. Goto `target/lis-intranet-automation.war}` to get the archived file.
+* Once you see this message in the console, your build is ready. Goto `target/twitter-automation.war` to get the WAR file.
 
 _Note: I have used WAR for packaging. If you want to build into the jar file, change the `<packaging>` inside pom.xml file to jar._
 
@@ -92,19 +92,24 @@ _Note: I have used WAR for packaging. If you want to build into the jar file, ch
 
 Now you can use any application server to deploy the archived java file. For this project I am using [Wildfly v22.0.1](https://www.wildfly.org/) 
 
-Congrats !!! You are now able to run the project in your own development environment. 
+Congrats !!! You are now able to run and deploy the project in your own development environment. 
 
 ## Usage
-Server automatically schedules intranet check in and check out time for the next day in every restart. There is also APIs exposed for manual check in and check out.
+Server automatically schedules Twitter Like Action based on the time interval mentioned on `twitter.properties` file. There is also APIs exposed for manual login, logout and like actions.
 
-### For Manual Check in
+### For Manual Login
 ```http
-GET /lis-intranet-automation/api/action/checkin
+GET /twitter-automation/api/action/login
 ```
 
-### For Manual Checkout
+### For Automating Likes
 ```http
-GET /lis-intranet-automation/api/action/checkout
+GET /twitter-automation/api/action/like
+```
+
+### For Manual Logout
+```http
+GET /twitter-automation/api/action/logout
 ```
 
 ## Authors
